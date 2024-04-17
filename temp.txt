@@ -1,0 +1,31 @@
+Home - Are u a Doctor/Patient {Login , Register}
+Login -  Email , Password
+Patient - Register - Email , Password, Name , Phone, Address
+Doctor - Register - Email , Password, Name, Specialist, Address, Phone, Experience, About
+
+PATIENT
+1. Book Appointment
+2. View Appointment
+3. Cancel Appointment
+4. View Prescription
+5. View Profile
+
+6. order Medicine
+
+7. View Order
+
+8. Cancel Order
+
+9. View Order Status
+
+10. View Order History
+
+11. View Medicine
+
+12. View Medicine Details
+payment
+DOCTOR
+1. Approve Appointment
+2 . consultatgkrgkrg;lr';l
+3. precription
+4.
