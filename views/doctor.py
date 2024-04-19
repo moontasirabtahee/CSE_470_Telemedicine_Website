@@ -83,11 +83,18 @@ def update_doctor(id):
         d.update_doctor(id, specialization=specialization, location=location, availability=availability)
         return redirect(url_for('index.index_page'))
     else:
-        return render_template('update_doctor.html', doctor=doc)
+        return render_template('index.html', doctor=doc)
 
 @doctor.route('/delete/<int:id>', methods=['GET', 'POST'])
 def delete_doctor(id):
+    # delete the profile and user as well
+    doc = d.get_doctor_by_profile_id(id)
+    profile_id = doc.profile_id
+    user_id = profile.get_profile(profile_id).user_id
     d.delete_doctor(id)
+    profile.delete_profile(profile_id)
+    user.delete_user(user_id)
+
     return redirect(url_for('index.index_page'))
 
 
