@@ -12,5 +12,9 @@ class Profile(db.Model):
     gender = db.Column(db.String(10), nullable=False)
     address = db.Column(db.String(255), nullable=False)
 
+    doctor = db.relationship('Doctor', backref='profile', uselist=False)
+    patient = db.relationship('Patient', backref='profile', uselist=False)
+
+
     def __repr__(self):
         return '<Profile {}>'.format(self.id)
