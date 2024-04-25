@@ -83,7 +83,7 @@ def update_doctor(id):
         d.update_doctor(id, specialization=specialization, location=location, availability=availability)
         return redirect(url_for('index.index_page'))
     else:
-        return render_template('index.html', doctor=doc)
+        return render_template('indexg.gghtml', doctor=doc)
 
 @doctor.route('/delete/<int:id>', methods=['GET', 'POST'])
 def delete_doctor(id):

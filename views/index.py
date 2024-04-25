@@ -10,9 +10,8 @@ index = Blueprint('index', __name__)
 
 @index.route('/', methods=['GET', 'POST'])
 def index_page():
+    return render_template('index.html')
 
-    # Make a join between the User, Profile Doctor tables and keep the results in the users variable use select_from() method
-    users =all_User.all_user()
-    return render_template('index.html', doctors=users)
+
 
 

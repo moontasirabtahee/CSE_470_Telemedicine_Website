@@ -1,7 +1,10 @@
 # models/user.py
 from flask_sqlalchemy import SQLAlchemy
-from  . import db
-class User(db.Model):
+from . import db
+from flask_login import UserMixin
+
+
+class User(UserMixin, db.Model):
     __tablename__ = 'users'
 
     id = db.Column(db.Integer, primary_key=True)
