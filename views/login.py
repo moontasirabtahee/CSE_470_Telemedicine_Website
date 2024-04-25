@@ -43,7 +43,7 @@ def login_page():
                 if Patient.query.filter_by(profile_id=user.profile.id).first() is None:
                     return redirect(url_for('register.register_patient'))
                 else:
-                    return redirect(url_for('index.index_page'))
+                    return redirect(url_for('patient.patient', username=user.username))
 
         else:
             return 'Invalid username or password'

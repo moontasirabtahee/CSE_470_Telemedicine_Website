@@ -1,5 +1,5 @@
 from flask import Flask , request, Blueprint, render_template, redirect, url_for
-from controllers import doctor , all_User
+from controllers import doctor
 from models import db, Doctor, Profile, User
 
 index = Blueprint('index', __name__)

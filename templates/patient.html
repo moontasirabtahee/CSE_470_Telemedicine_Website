@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Welcome to the Patient Homepage</h1>
+
+    <h2>Doctors</h2>
+    <ul>
+{#        for each doctor show the Full name , Speciality , Avalability , Location   in a table format#}
+        {% for doctor in doctors %}
+            <table>
+                <tr>
+                    <th>Full Name</th>
+                    <th>Speciality</th>
+                    <th>Availability</th>
+                    <th>Location</th>
+                </tr>
+                <tr>
+                    <td>{{ "Dr. " + doctor.profile.first_name + " " + doctor.profile.last_name}}</td>
+                    <td>{{ doctor.specialization }}</td>
+                    <td>{{ doctor.availability }}</td>
+                    <td>{{ doctor.location }}</td>
+                </tr>
+            </table>
+        {% endfor %}
+
+
+    </ul>
+
+    <h2>Telemedicine Platform(Maisha)</h2>
+{#    <p><a href="{{ }}">Click here to access the Telemedicine Platform</a></p>#}
+
+    <h2>Appointment System(Shirsho)</h2>
+{#    <p><a href="{{ }}">Click here to schedule an appointment</a></p>#}
+
+
+    <h2>Prescription System(Riana)</h2>
+{#    <p><a href="{{ }}">Click here to view your prescriptions</a></p>#}
+
+
+{% endblock %}

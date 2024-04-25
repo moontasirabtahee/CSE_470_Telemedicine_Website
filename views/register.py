@@ -4,6 +4,7 @@ from flask_login import login_required , current_user
 
 from models import db, User, Profile, Doctor, Patient
 from controllers import user, doctor, patient,profile
+
 from forms import registration as rg
 from datetime import datetime
 
@@ -28,7 +29,7 @@ def register_page():
                           date_of_birth=day, gender=form.gender.data, address=form.address.data,
                                           user_id=Auser.id)
 
-        return redirect(url_for('login.login_page'))
+        return redirect(url_for('register.register_patient'))
 
     return render_template('register.html', form=form)
 
@@ -54,7 +55,7 @@ def register_patient():
     if form.validate_on_submit():
         # create patient
         patient.create_patient(medical_history=form.medical_history.data, profile_id=current_user.profile.id)
-        return redirect(url_for('index.index_page'))
+        return redirect(url_for('patient.patient', username=current_user.username))
 
     return render_template('PaiReg.html', form=form)
 
