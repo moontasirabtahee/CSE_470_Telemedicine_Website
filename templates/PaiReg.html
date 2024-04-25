@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Register as a Doctor</h1>
+    <form method="POST" action="{{ url_for("register.register_patient") }}">
+        {{ form.hidden_tag() }}
+        {{ form.medical_history.label }} {{ form.medical_history() }}
+        {{ form.submit() }}
+    </form>
+{% endblock %}

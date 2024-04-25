@@ -2,7 +2,7 @@
 
 {% block content %}
     <h1>Login</h1>
-    <form method="POST">
+    <form method="POST", action="{{ url_for("login.login_page") }}">
         {{ form.hidden_tag() }}
 
         {{ form.username.label }} {{ form.username() }}

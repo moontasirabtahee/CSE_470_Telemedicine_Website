@@ -1,5 +1,7 @@
 # views/register.py
 from flask import Blueprint, render_template, redirect, url_for, request
+from flask_login import login_required , current_user
+
 from models import db, User, Profile, Doctor, Patient
 from controllers import user, doctor, patient,profile
 from forms import registration as rg
@@ -26,17 +28,34 @@ def register_page():
                           date_of_birth=day, gender=form.gender.data, address=form.address.data,
                                           user_id=Auser.id)
 
-        db.session.add(Auser)
-        db.session.add(Aprofile)
-
-        # if form.role.data == 'doctor':
-        #     doctor = Doctor(specialization=form.specialization.data, location=form.location.data, availability=form.availability.data, profile=profile)
-        #     db.session.add(doctor)
-        # else:
-        #     patient = Patient(medical_history=form.medical_history.data, profile=profile)
-        #     db.session.add(patient)
-
-        db.session.commit()
         return redirect(url_for('login.login_page'))
 
     return render_template('register.html', form=form)
+
+@register.route('/register/doctor', methods=['GET', 'POST'])
+@login_required
+def register_doctor():
+    form = rg.DoctorRegistrationForm()
+
+    if form.validate_on_submit():
+        # create doctor
+        doctor.create_doctor(specialization=form.specialization.data, location=form.location.data,
+                             availability=form.availability.data,profile_id=current_user.profile.id)
+        return redirect(url_for('index.index_page'))
+
+    return render_template('DocReg.html', form=form)
+
+
+@register.route('/register/patient', methods=['GET', 'POST'])
+@login_required
+def register_patient():
+    form = rg.PatientRegistrationForm()
+
+    if form.validate_on_submit():
+        # create patient
+        patient.create_patient(medical_history=form.medical_history.data, profile_id=current_user.profile.id)
+        return redirect(url_for('index.index_page'))
+
+    return render_template('PaiReg.html', form=form)
+
+

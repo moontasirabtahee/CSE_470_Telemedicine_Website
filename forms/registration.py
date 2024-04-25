@@ -20,15 +20,17 @@ class RegistrationForm(FlaskForm):
     address = StringField('Address', validators=[DataRequired()])
 
     submit = SubmitField('Sign Up')
-class DoctorRegistrationForm(RegistrationForm):
+class DoctorRegistrationForm(FlaskForm):
     # doctor-specific fields
     specialization = StringField('Specialization', validators=[DataRequired()])
     location = StringField('Location', validators=[DataRequired()])
     availability = StringField('Availability', validators=[DataRequired()])
+    submit = SubmitField('Complete Form')
 
-class PatientRegistrationForm(RegistrationForm):
+class PatientRegistrationForm(FlaskForm):
     # patient-specific fields
     medical_history = StringField('Medical History', validators=[DataRequired()])
+    submit = SubmitField('Complete form')
 
     # def validate_username(self, field):
 

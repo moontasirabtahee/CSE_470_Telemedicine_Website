@@ -32,4 +32,8 @@
         <h2>About Us</h2>
         <p>[Your Website Info]</p>
     </section>
+    {% if current_user.is_authenticated %}
+        <a href="{{ url_for('login.logout') }}">Logout</a>
+    {% endif %}
+
 {% endblock %}

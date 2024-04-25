@@ -52,7 +52,7 @@
     <br>
     {{ form.gender.label }} {{ form.gender() }}
     {% for error in form.gender.errors %}
-    <span style="color: red;">[{{ error }}]
+    <span style="color: red;">[{{ error }}]</span>  <!-- Here's the corrected line -->
     {% endfor %}
     <br>
     {{ form.address.label }} {{ form.address() }}

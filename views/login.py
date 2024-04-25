@@ -32,7 +32,25 @@ def login_page():
         #check if the user exists and the password is correct
         if user and check_password_hash(user.password, password):
             login_user(user)
-            return redirect(url_for('index.index_page'))
+            # if the user is a doctor, but in database no doctor is created yet then redirect to the doctor registration page
+            if user.role == 'doctor':
+                if Doctor.query.filter_by(profile_id=user.profile.id).first() is None:
+                    return redirect(url_for('register.register_doctor'))
+                else:
+                    return redirect(url_for('index.index_page'))
+            # if the user is a patient, but in database no patient is created yet then redirect to the patient registration page
+            elif user.role == 'patient':
+                if Patient.query.filter_by(profile_id=user.profile.id).first() is None:
+                    return redirect(url_for('register.register_patient'))
+                else:
+                    return redirect(url_for('index.index_page'))
+
         else:
             return 'Invalid username or password'
     return render_template('login.html',form=form)
+
+@login.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    return redirect(url_for('index.index_page'))
