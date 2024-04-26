@@ -23,7 +23,18 @@ def login_page():
     form = lg.LoginForm()
     #if the user is already logged in, redirect them to the index page
     if current_user.is_authenticated:
-        return redirect(url_for('index.index_page'))
+        if current_user.role == 'doctor':
+            if Doctor.query.filter_by(profile_id=current_user.profile.id).first() is None:
+                return redirect(url_for('register.register_doctor'))
+            else:
+                return redirect(url_for('doctor.doctor_page', username=current_user.username))
+
+        # if the user is a patient, but in database no patient is created yet then redirect to the patient registration page
+        elif current_user.role == 'patient':
+            if Patient.query.filter_by(profile_id=current_user.profile.id).first() is None:
+                return redirect(url_for('register.register_patient'))
+            else:
+                return redirect(url_for('patient.patient', username=current_user.username))
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
