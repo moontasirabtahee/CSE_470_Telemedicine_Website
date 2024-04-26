@@ -37,4 +37,9 @@
 {#    <p><a href="{{ }}">Click here to view your prescriptions</a></p>#}
 
 
+{#     link to edit profile#}
+    <h2>Edit Profile</h2>
+    <p><a href="{{ url_for('patient.update_patient',username = user.username) }}">Click here to edit your profile</a></p>
+
+
 {% endblock %}
