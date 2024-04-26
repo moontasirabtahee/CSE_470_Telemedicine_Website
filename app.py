@@ -28,7 +28,8 @@ app.register_blueprint(register.register)
 app.register_blueprint(login.login)
 app.register_blueprint(patient.patient_bp)
 app.register_blueprint(doctor.doctor)
-
+from views import appoinment
+app.register_blueprint(appoinment.appointment)
 
 
 

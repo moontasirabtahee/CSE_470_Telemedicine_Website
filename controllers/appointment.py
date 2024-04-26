@@ -10,12 +10,8 @@ def create_appointment(doctor_id, patient_id, date, time, status):
 def get_appointment(id):
     return Appointment.query.get(id)
 
-def update_appointment(id, doctor_id=None, patient_id=None, date=None, time=None, status=None):
+def update_appointment(id, date=None, time=None, status=None):
     appointment = get_appointment(id)
-    if doctor_id is not None:
-        appointment.doctor_id = doctor_id
-    if patient_id is not None:
-        appointment.patient_id = patient_id
     if date is not None:
         appointment.date = date
     if time is not None:

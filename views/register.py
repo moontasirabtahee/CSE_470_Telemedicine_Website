@@ -29,7 +29,7 @@ def register_page():
                           date_of_birth=day, gender=form.gender.data, address=form.address.data,
                                           user_id=Auser.id)
 
-        return redirect(url_for('register.register_patient'))
+        return redirect(url_for('login.login_page'))
 
     return render_template('register.html', form=form)
 
@@ -42,7 +42,7 @@ def register_doctor():
         # create doctor
         doctor.create_doctor(specialization=form.specialization.data, location=form.location.data,
                              availability=form.availability.data,profile_id=current_user.profile.id)
-        return redirect(url_for('doctor.doctor_page'))
+        return redirect(url_for('doctor.doctor_page', username=current_user.username))
 
     return render_template('DocReg.html', form=form)
 

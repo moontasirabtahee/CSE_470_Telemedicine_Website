@@ -6,19 +6,26 @@
     <h2>Doctors</h2>
     <ul>
 {#        for each doctor show the Full name , Speciality , Avalability , Location   in a table format#}
-        {% for doctor in doctors %}
-            <table>
+        <table>
                 <tr>
                     <th>Full Name</th>
                     <th>Speciality</th>
                     <th>Availability</th>
                     <th>Location</th>
                 </tr>
+                {% for doctor in doctors %}
                 <tr>
                     <td>{{ "Dr. " + doctor.profile.first_name + " " + doctor.profile.last_name}}</td>
                     <td>{{ doctor.specialization }}</td>
                     <td>{{ doctor.availability }}</td>
                     <td>{{ doctor.location }}</td>
+               <td>
+    <form method="GET" action="{{ url_for('appointment.create_appointment', doctor_id=doctor.id) }}">
+        <input type="hidden" name="doctor_id" value="{{ doctor.id }}">
+        <input type="submit" value="Take Appointment">
+    </form>
+</td>
+
                 </tr>
             </table>
         {% endfor %}
@@ -26,6 +33,9 @@
 
     </ul>
 
+    <form method="GET" action="{{ url_for('appointment.appointments') }}">
+        <input type="submit" value="Show all appointments">
+    </form>
     <h2>Telemedicine Platform(Maisha)</h2>
 {#    <p><a href="{{ }}">Click here to access the Telemedicine Platform</a></p>#}
 

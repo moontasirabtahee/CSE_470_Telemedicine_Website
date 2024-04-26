@@ -1,0 +1,21 @@
+/* base.css */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+/* DocReg.css */
+h1 {
+    text-align: center;
+    color: #333;
+}
+
+/* doctor.css */
+.container {
+    width: 80%;
+    margin: 0 auto;
+}
+
+/* More rules from other files... */
