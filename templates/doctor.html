@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <h2>Welcome, {{ user.username }}!</h2>
+    <div class="profile">
+        <h3>Profile Information</h3>
+        <p><strong>Username:</strong> {{ user.username }}</p>
+        <p><strong>Email:</strong> {{ user.email }}</p>
+        <p><strong>First Name:</strong> {{ profile.first_name }}</p>
+        <p><strong>Last Name:</strong> {{ profile.last_name }}</p>
+        <p><strong>Specialization:</strong> {{ doctor.specialization }}</p>
+        <p><strong>Location:</strong> {{ doctor.location }}</p>
+        <p><strong>Availability:</strong> {{ doctor.availability }}</p>
+    </div>
+    <div class="actions">
+        <a href="{{ url_for('doctor.update_doctor',username = user.username) }}" class="btn btn-primary">Edit Profile</a>
+    </div>
+</div>
+{% endblock %}

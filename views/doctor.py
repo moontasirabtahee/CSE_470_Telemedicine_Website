@@ -1,91 +1,84 @@
 from flask import Flask , request, Blueprint, render_template, redirect, url_for
+from flask_login import login_required, current_user
+from sqlalchemy.orm import joinedload
+
+from models import db, User, Profile, Doctor, Patient
 from controllers import doctor as d
 from controllers import profile , user
 
+from forms import registration as rg , login as lg , doctorF as dg
 
 doctor = Blueprint('doctor', __name__)
 
-"""
+@doctor.route('/doctor/<username>', methods=['GET', 'POST'])
+@login_required
+def doctor_page(username=None):
+    # Get the user, profile, and doctor details using the current user's ID
+    userx = User.query.filter_by(id=current_user.id).first()
+    profilex = Profile.query.filter_by(user_id=current_user.id).first()
+    doctorx = Doctor.query.filter_by(profile_id=profilex.id).first()
 
-├── User (Parent)
-│   ├── id (Primary Key)
-│   ├── username
-│   ├── password
-│   ├── role (Patient, Doctor, Admin)
-│   ├── email
-│   └── phone
-├── Profile (Child of User)
-│   ├── id (Primary Key)
-│   ├── user_id (Foreign Key referencing User.id)
-│   ├── first_name
-│   ├── last_name
-│   ├── date_of_birth
-│   ├── gender
-│   └── address
-├── Doctor (Child of Profile)
-│   ├── id (Primary Key)
-│   ├── profile_id (Foreign Key referencing Profile.id)
-│   ├── specialization
-│   ├── location
-│   └── availability
+    if user is None or profile is None or doctor is None:
+        # Handle the case where no user, profile, or doctor is found
+        return "No user, profile, or doctor found", 404
 
-"""
-@doctor.route('/register', methods=['GET', 'POST'])
-def register_doctor():
+    return render_template('doctor.html', user=userx, profile=profilex, doctor=doctorx)
+
+
+
+from forms import doctorF
+from datetime import datetime
+@doctor.route('/doctor/edit/<username>', methods=['GET', 'POST'])
+@login_required
+def update_doctor(username=None):
+    # Get the user, profile, and doctor details using the current user's ID
+    userx = User.query.filter_by(id=current_user.id).first()
+    profilex = Profile.query.filter_by(user_id=current_user.id).first()
+    doctorx = Doctor.query.filter_by(profile_id=profilex.id).first()
+
+    if userx is None or profilex is None or doctorx is None:
+        # Handle the case where no user, profile, or doctor is found
+        return "No user, profile, or doctor found", 404
+
     if request.method == 'POST':
+        # Update user
         username = request.form.get('username')
-        password = request.form.get('password')
         email = request.form.get('email')
         phone = request.form.get('phone')
+        from controllers import user
+        user.update_user(id=userx.id, username=username, email=email, phone=phone)
+
+
+        # Update profile
         first_name = request.form.get('first_name')
         last_name = request.form.get('last_name')
-        date_of_birth = request.form.get('date_of_birth')
+        date_of_birth = datetime.strptime(request.form.get('date_of_birth'), '%Y-%m-%d')
         gender = request.form.get('gender')
         address = request.form.get('address')
+        from controllers import profile
+
+        profile.update_profile(id=profilex.id,user=userx.id , first_name=first_name, last_name=last_name,
+                               date_of_birth=date_of_birth,gender=gender, address=address)
+
+
+
+        # Update doctor
         specialization = request.form.get('specialization')
         location = request.form.get('location')
         availability = request.form.get('availability')
-        from datetime import datetime
+        from controllers import doctor
+        doctor.update_doctor(id=doctorx.id, specialization=specialization, location=location,
+                             availability=availability)
 
-        date_of_birth = datetime.strptime(date_of_birth, '%Y-%m-%d')
-
-        user_id = user.create_user(username, password, 'Doctor', email, phone).id
-        profile_id = profile.create_profile(user_id, first_name, last_name, date_of_birth,gender,address).id
-        d.create_doctor(profile_id, specialization, location, availability)
-        return redirect(url_for('index.index_page'))
+        # Commit the changes to the database
 
 
-@doctor.route('/update/<int:id>', methods=['GET', 'POST'])
-def update_doctor(id):
-    doc = d.get_doctor_by_profile_id(id)
-    if request.method == 'POST':
-        #update user
-        username = request.form.get('username')
-        password = request.form.get('password')
-        email = request.form.get('email')
-        phone = request.form.get('phone')
-        user.update_user(id, username=username, password=password, email=email, phone=phone)
-        #update profile
-        first_name = request.form.get('first_name')
-        last_name = request.form.get('last_name')
-        date_of_birth = request.form.get('date_of_birth')
-        gender = request.form.get('gender')
-        address = request.form.get('address')
-        from datetime import datetime
-        date_of_birth = datetime.strptime(date_of_birth, '%Y-%m-%d')
-        profile.update_profile(id, first_name=first_name, last_name=last_name, date_of_birth=date_of_birth,
-                               gender = gender, address=address)
+        return redirect(url_for('doctor.doctor_page', username=userx.username))
 
-        #update doctor
-        specialization = request.form.get('specialization')
-        location = request.form.get('location')
-        availability = request.form.get('availability')
-        d.update_doctor(id, specialization=specialization, location=location, availability=availability)
-        return redirect(url_for('index.index_page'))
-    else:
-        return render_template('indexg.gghtml', doctor=doc)
+    form = doctorF.EditDoctorForm(obj=userx)  # Populate the form with the current details
+    return render_template('edit_doctor.html', form=form, doctor=doctorx,user = userx, profile = profilex)
 
-@doctor.route('/delete/<int:id>', methods=['GET', 'POST'])
+@doctor.route('/doctor/delete/<username>', methods=['GET', 'POST'])
 def delete_doctor(id):
     # delete the profile and user as well
     doc = d.get_doctor_by_profile_id(id)
@@ -94,6 +87,7 @@ def delete_doctor(id):
     d.delete_doctor(id)
     profile.delete_profile(profile_id)
     user.delete_user(user_id)
+    # logout the user
 
     return redirect(url_for('index.index_page'))
 

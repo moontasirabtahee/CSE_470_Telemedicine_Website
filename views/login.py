@@ -37,7 +37,8 @@ def login_page():
                 if Doctor.query.filter_by(profile_id=user.profile.id).first() is None:
                     return redirect(url_for('register.register_doctor'))
                 else:
-                    return redirect(url_for('index.index_page'))
+                    return redirect(url_for('doctor.doctor_page', username=user.username))
+
             # if the user is a patient, but in database no patient is created yet then redirect to the patient registration page
             elif user.role == 'patient':
                 if Patient.query.filter_by(profile_id=user.profile.id).first() is None:

@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <h2>Edit Doctor Profile</h2>
+    <form method="POST" action="{{ url_for('doctor.update_doctor', username=user.username) }}">
+        {{ form.hidden_tag() }}
+        <div class="form-group">
+            {{ form.username.label }} {{ form.username(class="form-control", value=user.username) }}
+        </div>
+        <div class="form-group">
+            {{ form.email.label }} {{ form.email(class="form-control", value=user.email) }}
+        </div>
+        <div class="form-group">
+            {{ form.first_name.label }} {{ form.first_name(class="form-control", value=profile.first_name) }}
+        </div>
+        <div class="form-group">
+            {{ form.last_name.label }} {{ form.last_name(class="form-control", value=profile.last_name) }}
+        </div>
+        <div class="form-group">
+            {{ form.date_of_birth.label }} {{ form.date_of_birth(class="form-control", value=profile.date_of_birth) }}
+        </div>
+        <div class="form-group">
+            {{ form.phone.label }} {{ form.phone(class="form-control", value=user.phone) }}
+        </div>
+        <div class="form-group">
+            {{ form.gender.label }} {{ form.gender(class="form-control", value=profile.gender) }}
+        </div>
+        <div class="form-group">
+            {{ form.address.label }} {{ form.address(class="form-control", value=profile.address) }}
+        </div>
+        <div class="form-group">
+            {{ form.specialization.label }} {{ form.specialization(class="form-control", value=doctor.specialization) }}
+        </div>
+        <div class="form-group">
+            {{ form.location.label }} {{ form.location(class="form-control", value=doctor.location) }}
+        </div>
+        <div class="form-group">
+            {{ form.availability.label }} {{ form.availability(class="form-control", value=doctor.availability) }}
+        </div>
+        {{ form.submit(class="btn btn-primary") }}
+    </form>
+</div>
+{% endblock %}

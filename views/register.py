@@ -42,7 +42,7 @@ def register_doctor():
         # create doctor
         doctor.create_doctor(specialization=form.specialization.data, location=form.location.data,
                              availability=form.availability.data,profile_id=current_user.profile.id)
-        return redirect(url_for('index.index_page'))
+        return redirect(url_for('doctor.doctor_page'))
 
     return render_template('DocReg.html', form=form)
 

@@ -11,10 +11,9 @@ def create_profile(user_id, first_name, last_name, date_of_birth,gender,address)
 def get_profile(id):
     return Profile.query.get(id)
 
-def update_profile(id, user_id=None, first_name=None, last_name=None, date_of_birth=None, gender=None, address=None):
-    profile = get_profile(id)
-    if user_id is not None:
-        profile.user_id = user_id
+def update_profile(id,user= None, first_name=None, last_name=None, date_of_birth=None, gender=None, address=None):
+    from controllers import user
+    profile = get_profile(id) or user.get_user(id).profile
     if first_name is not None:
         profile.first_name = first_name
     if last_name is not None:

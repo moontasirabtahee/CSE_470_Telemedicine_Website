@@ -42,3 +42,10 @@ def get_doctor_by_availability(availability):
 
 def get_doctor_by_profile_id(profile_id):
     return Doctor.query.filter_by(profile_id=profile_id).first()
+
+
+def get_doctor_by_username(username):
+    from controllers import user
+    user = user.get_user_by_username(username)
+    if user is not None:
+        return get_doctor_by_profile_id(user.profile.id)
