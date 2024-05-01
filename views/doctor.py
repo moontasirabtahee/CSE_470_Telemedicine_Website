@@ -90,7 +90,24 @@ def delete_doctor(id):
     # logout the user
 
     return redirect(url_for('index.index_page'))
+from models import Appointment
 
+
+from controllers import appointment as ap
+
+@doctor.route('/appointments/update/<int:id>', methods=['POST'])
+@login_required
+def update_appointment_status(id):
+    if current_user.role != 'doctor':
+        return "You are not authorized to update the appointment status", 403
+    # Get the appointment
+    appointment = ap.get_appointment(id)
+    if appointment is None:
+        return "Appointment not found", 404
+    # Update the status
+    status = request.form.get('status')
+    ap.update_appointment(id=id, status=status)
+    return redirect(url_for('doctor.doctor_page', username=current_user.username))
 
 
 
