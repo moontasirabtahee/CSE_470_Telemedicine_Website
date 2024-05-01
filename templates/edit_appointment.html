@@ -1,9 +1,6 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Edit Appointment</title>
-</head>
-<body>
+{% extends "base.html" %}
+
+{% block content %}
     <h1>Edit Appointment</h1>
     <form method="POST" action="">
         <label for="date">Date:</label><br>
@@ -12,5 +9,4 @@
         <input type="time" id="time" name="time" value="{{ appointment.time }}"><br>
         <input type="submit" value="Update Appointment">
     </form>
-</body>
-</html>
+{% endblock %}

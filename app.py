@@ -32,4 +32,3 @@ from views import appoinment
 app.register_blueprint(appoinment.appointment)
 
 
-
