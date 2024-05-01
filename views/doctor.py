@@ -21,8 +21,10 @@ def doctor_page(username=None):
     if user is None or profile is None or doctor is None:
         # Handle the case where no user, profile, or doctor is found
         return "No user, profile, or doctor found", 404
+    # Get the doctor's appointments
+    appointments = Appointment.query.filter_by(doctor_id=doctorx.id).all()
 
-    return render_template('doctor.html', user=userx, profile=profilex, doctor=doctorx)
+    return render_template('doctor.html', user=userx, profile=profilex, doctor=doctorx, appointments=appointments)
 
 
 
@@ -90,6 +92,8 @@ def delete_doctor(id):
     # logout the user
 
     return redirect(url_for('index.index_page'))
+
+
 from models import Appointment
 
 
@@ -108,8 +112,4 @@ def update_appointment_status(id):
     status = request.form.get('status')
     ap.update_appointment(id=id, status=status)
     return redirect(url_for('doctor.doctor_page', username=current_user.username))
-
-
-
-
 
