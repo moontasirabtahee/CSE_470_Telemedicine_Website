@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
+    <section class="x">
 
     <h1>Welcome to the Patient Homepage</h1>
 
@@ -69,5 +70,5 @@
     <p><a href="{{ url_for('patient.update_patient',username = user.username) }}">Click here to edit your profile</a></p>
 
 
-
+</section>
 {% endblock %}
