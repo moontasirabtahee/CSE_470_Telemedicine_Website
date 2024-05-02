@@ -70,5 +70,29 @@
     <p><a href="{{ url_for('patient.update_patient',username = user.username) }}">Click here to edit your profile</a></p>
 
 
+    <h2>Your Prescriptions</h2>
+    {% if prescriptions %}
+        <table>
+            <tr>
+                <th>Appointment ID</th>
+                <th>Medicine</th>
+                <th>Dosage</th>
+                <th>Instructions</th>
+            </tr>
+            {% for prescription in prescriptions %}
+                <tr>
+                    <td>{{ prescription.appointment_id }}</td>
+                    <td>{{ prescription.medicine_name }}</td>
+                    <td>{{ prescription.dosage }}</td>
+                    <td>{{ prescription.instructions }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        <p>No prescriptions found.</p>
+    {% endif %}
+
 </section>
+
+
 {% endblock %}

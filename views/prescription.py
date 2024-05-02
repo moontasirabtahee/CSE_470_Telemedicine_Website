@@ -6,10 +6,13 @@ from models import db, Prescription, Appointment
 
 prescription_bp = Blueprint('prescription', __name__)
 
+# views/prescription.py
 @prescription_bp.route('/prescription/new/<int:appointment_id>', methods=['GET', 'POST'])
 @login_required
 def new_prescription(appointment_id):
     form = x.PrescriptionForm()
+    prescription = Prescription.query.filter_by(appointment_id=appointment_id).all()
+
     if form.validate_on_submit():
         medicines = form.medicines.data
         dosages = form.dosages.data
@@ -22,4 +25,4 @@ def new_prescription(appointment_id):
 
         return redirect(url_for('prescription.new_prescription', appointment_id=appointment_id))
 
-    return render_template('prescription.html', form=form, appointment_id=appointment_id)
+    return render_template('prescription.html', form=form, appointment_id=appointment_id, prescription=prescription)

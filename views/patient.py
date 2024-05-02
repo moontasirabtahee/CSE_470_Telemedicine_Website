@@ -17,14 +17,16 @@ def patient(username):
     doctors = Doctor.query.join(Profile).all()
     user = User.query.filter_by(username=username).first()
     from controllers import patient
-    
+
     appointments = patient.get_appointment_by_patient_id(current_user.id)
     # appointments to the doctor
     doctorx = Doctor.query.filter_by(id=appointments[0].doctor_id)
     # profile of the doctor
     profilex = Profile.query.filter_by(id=doctorx[0].profile_id).first()
-    return render_template('patient.html', doctors=doctors, user=user, appointments=appointments, App_doctor=doctorx, App_profile=profilex)
-
+    from models import Prescription
+    prescriptions = Prescription.query.filter_by(appointment_id=appointments[0].id).all() if appointments else None
+    return render_template('patient.html', doctors=doctors, user=user, appointments=appointments, App_doctor=doctorx,
+                           App_profile=profilex, prescriptions=prescriptions)
 from forms import patientF
 from datetime import datetime
 @patient_bp.route('/patient/edit/<username>', methods=['GET', 'POST'])

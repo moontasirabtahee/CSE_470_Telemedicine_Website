@@ -5,6 +5,23 @@
     <form method="POST" style="width: 300px;" action={{ url_for("prescription.new_prescription",appointment_id=appointment_id) }}>
         {{ form.hidden_tag() }}
         <h2 style="color: blue;">Appointment ID: {{ appointment_id }}</h2>
+        {% if prescription %}
+            <h3>Existing Prescription:</h3>
+            <table>
+                <tr>
+                    <th>Medicine</th>
+                    <th>Dosage</th>
+                    <th>Instructions</th>
+                </tr>
+                {% for p in prescription %}
+                    <tr>
+                        <td>{{ p.medicine_name }}</td>
+                        <td>{{ p.dosage }}</td>
+                        <td>{{ p.instructions }}</td>
+                    </tr>
+                {% endfor %}
+            </table>
+        {% endif %}
         {% for medicine, dosage, instruction in zip(form.medicines, form.dosages, form.instructions) %}
             <div class="medicine" style="border: 1px solid black; padding: 10px; margin-bottom: 10px;">
                 <p>{{ medicine.label }}<br> {{ medicine }}</p>
@@ -14,7 +31,7 @@
         {% endfor %}
         <p>{{ form.submit(style="width: 100%;") }}</p>
     </form>
-{#    add medicine <button id="add-medicine">+</button> with action ?#}
+    <button id="add-medicine">+</button>
 
     <script>
         document.getElementById('add-medicine').addEventListener('click', function() {
