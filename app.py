@@ -31,4 +31,6 @@ app.register_blueprint(doctor.doctor)
 from views import appoinment
 app.register_blueprint(appoinment.appointment)
 
-
+from views import prescription
+app.register_blueprint(prescription.prescription_bp)
+app.jinja_env.globals.update(zip=zip)

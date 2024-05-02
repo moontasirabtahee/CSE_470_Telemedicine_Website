@@ -17,34 +17,41 @@
         <a href="{{ url_for('doctor.update_doctor',username = user.username) }}" class="btn btn-primary">Edit Profile</a>
     </div>
 </div>
-<!-- Appointment Notifications -->
-<div class="appointments">
-    <h3>Appointment Notifications</h3>
-    {% if appointments %}
-        <ul>
-        {% for appointment in appointments %}
-            <li>
-                Appointment with {{ appointment.patient_name }} on {{ appointment.date }} at {{ appointment.time }}
-                <!-- Show status if appointment is approved or denied -->
-                {% if appointment.status == 'approved' or appointment.status == 'denied' %}
-                    <strong>Status:</strong> {{ appointment.status }}
-                <!-- Otherwise, show Approve and Deny buttons -->
-                {% else %}
-                    <form method="POST" action="{{ url_for('doctor.update_appointment_status', id=appointment.id) }}">
-                        <input type="hidden" name="status" value="approved">
-                        <button type="submit">Approve</button>
-                    </form>
-                    <form method="POST" action="{{ url_for('doctor.update_appointment_status', id=appointment.id) }}">
-                        <input type="hidden" name="status" value="denied">
-                        <button type="submit">Deny</button>
-                    </form>
-                {% endif %}
-            </li>
-        {% endfor %}
-        </ul>
-    {% else %}
-        <p>No upcoming appointments.</p>
-    {% endif %}
-</div>
+  <!-- Appointment Notifications -->
+    <div class="appointments">
+        <h3>Appointment Notifications</h3>
+        {% if appointments %}
+            <ul>
+            {% for appointment in appointments %}
+                <li>
+                    Appointment with {{ appointment.patient_name }} on {{ appointment.date }} at {{ appointment.time }}
+                    <!-- Show status if appointment is approved or denied -->
+                    {% if appointment.status == 'approved' %}
+                        <strong>Status:</strong> {{ appointment.status }}
+                        <!-- Show Create Prescription button -->
+                        <form method="GET" action="{{ url_for('prescription.new_prescription', appointment_id=appointment.id) }}">
+    <button type="submit">Create Prescription</button>
+</form>
+
+                    {% elif appointment.status == 'denied' %}
+                        <strong>Status:</strong> {{ appointment.status }}
+                    {% else %}
+                        <!-- Show Approve and Deny buttons -->
+                        <form method="POST" action="{{ url_for('doctor.update_appointment_status', id=appointment.id) }}">
+                            <input type="hidden" name="status" value="approved">
+                            <button type="submit">Approve</button>
+                        </form>
+                        <form method="POST" action="{{ url_for('doctor.update_appointment_status', id=appointment.id) }}">
+                            <input type="hidden" name="status" value="denied">
+                            <button type="submit">Deny</button>
+                        </form>
+                    {% endif %}
+                </li>
+            {% endfor %}
+            </ul>
+        {% else %}
+            <p>No upcoming appointments.</p>
+        {% endif %}
+    </div>
 {% endblock %}
 

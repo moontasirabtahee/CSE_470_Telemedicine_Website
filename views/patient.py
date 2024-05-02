@@ -17,6 +17,7 @@ def patient(username):
     doctors = Doctor.query.join(Profile).all()
     user = User.query.filter_by(username=username).first()
     from controllers import patient
+    
     appointments = patient.get_appointment_by_patient_id(current_user.id)
     # appointments to the doctor
     doctorx = Doctor.query.filter_by(id=appointments[0].doctor_id)

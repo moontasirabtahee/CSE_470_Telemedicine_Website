@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>New Prescription</h1>
+    <form method="POST" style="width: 300px;">
+        {{ form.hidden_tag() }}
+        <h2 style="color: blue;">Appointment ID: {{ appointment_id }}</h2>
+        {% for medicine, dosage, instruction in zip(form.medicines, form.dosages, form.instructions) %}
+            <div class="medicine" style="border: 1px solid black; padding: 10px; margin-bottom: 10px;">
+                <p>{{ medicine.label }}<br> {{ medicine }}</p>
+                <p>{{ dosage.label }}<br> {{ dosage }}</p>
+                <p>{{ instruction.label }}<br> {{ instruction }}</p>
+            </div>
+        {% endfor %}
+        <p>{{ form.submit(style="width: 100%;") }}</p>
+    </form>
+    <button id="add-medicine" style="width: 300px;">Add Medicine</button>
+    <script>
+        document.getElementById('add-medicine').addEventListener('click', function() {
+            var medicines = document.querySelector('.medicine').cloneNode(true);
+            document.querySelector('form').insertBefore(medicines, document.querySelector('#add-medicine'));
+        });
+    </script>
+{% endblock %}

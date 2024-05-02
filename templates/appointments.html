@@ -1,9 +1,6 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Appointments</title>
-</head>
-<body>
+{% extends "base.html" %}
+
+{% block content %}
     <h1>Your Appointments</h1>
     {% if appointments %}
         <table>
@@ -34,5 +31,4 @@
     {% else %}
         <p>No appointments found.</p>
     {% endif %}
-</body>
-</html>
+{% endblock %}
