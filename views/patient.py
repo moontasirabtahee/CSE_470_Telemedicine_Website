@@ -20,9 +20,10 @@ def patient(username):
     
     appointments = patient.get_appointment_by_patient_id(current_user.id)
     # appointments to the doctor
-    doctorx = Doctor.query.filter_by(id=appointments[0].doctor_id)
-    # profile of the doctor
-    profilex = Profile.query.filter_by(id=doctorx[0].profile_id).first()
+    if appointments:
+        doctorx = Doctor.query.filter_by(id=appointments[0].doctor_id)
+        # profile of the doctor
+        profilex = Profile.query.filter_by(id=doctorx[0].profile_id).first()
     return render_template('patient.html', doctors=doctors, user=user, appointments=appointments, App_doctor=doctorx, App_profile=profilex)
 
 from forms import patientF
