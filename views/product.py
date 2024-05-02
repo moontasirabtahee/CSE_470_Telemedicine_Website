@@ -1,9 +1,9 @@
-from flask import Blueprint, render_template, request, redirect, url_for
-from .controllers import create_product, get_all_products, get_product_by_id, update_product
+from flask import Flask, Blueprint, render_template, request, redirect, url_for
+from controllers import create_product, get_all_products, get_product_by_id, update_product
 
 products = Blueprint('products', __name__)
 
-@products.route('/')
+@products.route('/product')
 def index():
  
   products = get_all_products()
