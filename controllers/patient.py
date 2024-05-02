@@ -31,3 +31,7 @@ def get_all_patients():
 def get_patient_by_profile_id(profile_id):
     return Patient.query.filter_by(profile_id=profile_id).first()
 
+
+def get_appointment_by_patient_id(id):
+    from models import Appointment
+    return Appointment.query.filter_by(patient_id=id).all()

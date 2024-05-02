@@ -37,20 +37,37 @@
     <form method="GET" action="{{ url_for('appointment.appointments') }}">
         <input type="submit" value="Show all appointments">
     </form>
-    <h2>Telemedicine Platform(Maisha)</h2>
-{#    <p><a href="{{ }}">Click here to access the Telemedicine Platform</a></p>#}
-
-    <h2>Appointment System(Shirsho)</h2>
-{#    <p><a href="{{ }}">Click here to schedule an appointment</a></p>#}
 
 
-    <h2>Prescription System(Riana)</h2>
-{#    <p><a href="{{ }}">Click here to view your prescriptions</a></p>#}
+    <!-- Your existing content -->
 
+    <h2>Your Appointments</h2>
+    {% if appointments %}
+        <table>
+            <tr>
+                <th>Appointment ID</th>
+                <th>Doctor ID</th>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Status</th>
+            </tr>
+            {% for appointment in appointments %}
+                <tr>
+                    <td>{{ appointment.id }}</td>
+                    <td>{{ "Dr. " + App_profile.first_name + " " + App_profile.last_name }}</td>
+                    <td>{{ appointment.date }}</td>
+                    <td>{{ appointment.time }}</td>
+                    <td>{{ appointment.status }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        <p>No appointments found.</p>
+    {% endif %}
 
-{#     link to edit profile#}
     <h2>Edit Profile</h2>
     <p><a href="{{ url_for('patient.update_patient',username = user.username) }}">Click here to edit your profile</a></p>
+
 
 
 {% endblock %}

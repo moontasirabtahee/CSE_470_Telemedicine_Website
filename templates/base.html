@@ -12,7 +12,22 @@
 </head>
 <body>
     <header>
-        <!-- Navigation goes here -->
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('index.index_page') }}">Home</a></li>
+                {% if current_user.is_authenticated %}
+                    {% if current_user.role == 'doctor' %}
+                        <li><a href="{{ url_for('doctor.doctor_page', username=current_user.username) }}">Doctor Page</a></li>
+                    {% elif current_user.role == 'patient' %}
+                        <li><a href="{{ url_for('patient.patient', username=current_user.username) }}">Patient Page</a></li>
+                    {% endif %}
+                    <li><a href="{{ url_for('login.logout') }}">Logout</a></li>
+                {% else %}
+                    <li><a href="{{ url_for('login.login_page') }}">Login</a></li>
+                    <li><a href="{{ url_for('register.register_page') }}">Register</a></li>
+                {% endif %}
+            </ul>
+        </nav>
     </header>
 
     <main>
