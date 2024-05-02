@@ -4,60 +4,54 @@
     <h1>Register</h1>
     <form method="POST" action="{{ url_for('register.register_page') }}">
     {{ form.hidden_tag() }}
-
-    {{ form.username.label }} {{ form.username() }}
-    {% for error in form.username.errors %}
-    <span style="color: red;">[{{ error }}]</span>
-    {% endfor %}
-    <br>
-    {{ form.password.label }} {{ form.password() }}
-    {% for error in form.password.errors %}
-    <span style="color: red;">[{{ error }}]</span>
-    {% endfor %}
-    <br>
-    {{ form.password_confirm.label }} {{ form.password_confirm() }}
-    {% for error in form.password_confirm.errors %}
-    <span style="color: red;">[{{ error }}]</span>
-    {% endfor %}
-    <br>
-    {{ form.role.label }} {{ form.role() }}
-    {% for error in form.role.errors %}
-    <span style="color: red;">[{{ error }}]</span>
-    {% endfor %}
-    <br>
-    {{ form.email.label }} {{ form.email() }}
-    {% for error in form.email.errors %}
-    <span style="color: red;">[{{ error }}]</span>
-    {% endfor %}
-    <br>
-    {{ form.phone.label }} {{ form.phone() }}
-    {% for error in form.phone.errors %}
-    <span style="color: red;">[{{ error }}]</span>
-    {% endfor %}
-    <br>
-    {{ form.first_name.label }} {{ form.first_name() }}
-    {% for error in form.first_name.errors %}
-    <span style="color: red;">[{{ error }}]</span>
-    {% endfor %}
-    <br>
-    {{ form.last_name.label }} {{ form.last_name() }}
-    {% for error in form.last_name.errors %}
-    <span style="color: red;">[{{ error }}]</span>
-    {% endfor %}
-    <br>
-    {{ form.date_of_birth.label }} {{ form.date_of_birth() }}
-    {% for error in form.date_of_birth.errors %}
-    <span style="color: red;">[{{ error }}]</span>
-    {% endfor %}
-    <br>
-    {{ form.gender.label }} {{ form.gender() }}
-    {% for error in form.gender.errors %}
-    <span style="color: red;">[{{ error }}]</span>  <!-- Here's the corrected line -->
-    {% endfor %}
-    <br>
-    {{ form.address.label }} {{ form.address() }}
-    {{ form.submit() }}
-    <br>
-
+    <table class="form-table">
+        <tr>
+            <td>{{ form.username.label }}</td>
+            <td>{{ form.username() }} {% for error in form.username.errors %}<span style="color: red;">[{{ error }}]</span>{% endfor %}</td>
+        </tr>
+        <tr>
+            <td>{{ form.password.label }}</td>
+            <td>{{ form.password() }} {% for error in form.password.errors %}<span style="color: red;">[{{ error }}]</span>{% endfor %}</td>
+        </tr>
+        <tr>
+            <td>{{ form.password_confirm.label }}</td>
+            <td>{{ form.password_confirm() }} {% for error in form.password_confirm.errors %}<span style="color: red;">[{{ error }}]</span>{% endfor %}</td>
+        </tr>
+        <tr>
+            <td>{{ form.role.label }}</td>
+            <td>{{ form.role() }} {% for error in form.role.errors %}<span style="color: red;">[{{ error }}]</span>{% endfor %}</td>
+        </tr>
+        <tr>
+            <td>{{ form.email.label }}</td>
+            <td>{{ form.email() }} {% for error in form.email.errors %}<span style="color: red;">[{{ error }}]</span>{% endfor %}</td>
+        </tr>
+        <tr>
+            <td>{{ form.phone.label }}</td>
+            <td>{{ form.phone() }} {% for error in form.phone.errors %}<span style="color: red;">[{{ error }}]</span>{% endfor %}</td>
+        </tr>
+        <tr>
+            <td>{{ form.first_name.label }}</td>
+            <td>{{ form.first_name() }} {% for error in form.first_name.errors %}<span style="color: red;">[{{ error }}]</span>{% endfor %}</td>
+        </tr>
+        <tr>
+            <td>{{ form.last_name.label }}</td>
+            <td>{{ form.last_name() }} {% for error in form.last_name.errors %}<span style="color: red;">[{{ error }}]</span>{% endfor %}</td>
+        </tr>
+        <tr>
+            <td>{{ form.date_of_birth.label }}</td>
+            <td>{{ form.date_of_birth() }} {% for error in form.date_of_birth.errors %}<span style="color: red;">[{{ error }}]</span>{% endfor %}</td>
+        </tr>
+        <tr>
+            <td>{{ form.gender.label }}</td>
+            <td>{{ form.gender() }} {% for error in form.gender.errors %}<span style="color: red;">[{{ error }}]</span>{% endfor %}</td>
+        </tr>
+        <tr>
+            <td>{{ form.address.label }}</td>
+            <td>{{ form.address() }} {% for error in form.address.errors %}<span style="color: red;">[{{ error }}]</span>{% endfor %}</td>
+        </tr>
+        <tr>
+            <td colspan="2">{{ form.submit() }}</td>
+        </tr>
+    </table>
     </form>
 {% endblock %}
