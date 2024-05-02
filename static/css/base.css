@@ -3,8 +3,8 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #E0BFB8; /* Very Light Pink */
-    color: #8B4513; /* Brown Text */
+    background-color: #B6D0E2; /* Very Light Pink */
+    color: #000000; /* Brown Text */
 }
 
 .container {
@@ -15,7 +15,7 @@ body {
 }
 
 h1, h2 {
-    color: #8B4513; /* Brown Titles */
+    color: #191970; /* Brown Titles */
     text-align: center; /* Center align titles */
 }
 
@@ -37,7 +37,7 @@ ul {
 a, .btn {
     display: inline-block;
     color: #fff;
-    background-color: #8B4513; /* Brown Background for Buttons */
+    background-color: #4682B4; /* Brown Background for Buttons */
     padding: 10px 20px;
     margin: 10px;
     text-decoration: none;
