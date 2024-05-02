@@ -11,7 +11,7 @@
       <li>
         <a href="{{ url_for('products.index', product_id=product.id) }}">
           {{ product.name }}
-        </a> - ৳{{ product.price }} ({{ product.stock }} in stock)
+        </a> - {{ product.price }} ({{ product.stock }} in stock)
       </li>
     {% endfor %}
   </ul>
