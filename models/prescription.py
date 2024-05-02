@@ -1,4 +1,3 @@
-
 # models/prescription.py
 from . import db
 
