@@ -29,9 +29,11 @@
         <p>{{ form.feedback.label }} {{ form.feedback() }}</p>
         <p>{{ form.submit() }}</p>
     </form>
-        {% if text %}
-            <H1>{{ text }}</H1>
-        {% endif %}
+        {% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <H1>{{ messages[0] }}</H1>
+  {% endif %}
+{% endwith %}
     </section>
 
     <section class="i4">
