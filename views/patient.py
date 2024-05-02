@@ -62,7 +62,7 @@ def update_patient(username=None):
         from controllers import patient
         patient.update_patient(id=patientx.id, medical_history=medical_history)
 
-        return redirect(url_for('patient.patient_page', username=userx.username))
+        return redirect(url_for('patient.patient', username=userx.username))
 
     form = patientF.EditPatientForm(obj=userx)  # Populate the form with the current details
     return render_template('edit_patient.html', form=form, patient=patientx,user = userx, profile = profilex)

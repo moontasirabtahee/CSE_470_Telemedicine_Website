@@ -8,5 +8,9 @@ def create_prescription(appointment_id, medicines, dosages, instructions):
     for medicine, dosage, instruction in zip(medicines, dosages, instructions):
         prescription = Prescription(appointment_id=appointment_id, medicine_name=medicine, dosage=dosage, instructions=instruction)
         db.session.add(prescription)
-
     db.session.commit()
+    return get_prescription(appointment_id)
+
+def get_prescription(id):
+    return Prescription.query.get(id).all()
+

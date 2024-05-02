@@ -2,7 +2,7 @@
 
 {% block content %}
     <h1>New Prescription</h1>
-    <form method="POST" style="width: 300px;">
+    <form method="POST" style="width: 300px;" action={{ url_for("prescription.new_prescription",appointment_id=appointment_id) }}>
         {{ form.hidden_tag() }}
         <h2 style="color: blue;">Appointment ID: {{ appointment_id }}</h2>
         {% for medicine, dosage, instruction in zip(form.medicines, form.dosages, form.instructions) %}
@@ -14,7 +14,8 @@
         {% endfor %}
         <p>{{ form.submit(style="width: 100%;") }}</p>
     </form>
-    <button id="add-medicine" style="width: 300px;">Add Medicine</button>
+{#    add medicine <button id="add-medicine">+</button> with action ?#}
+
     <script>
         document.getElementById('add-medicine').addEventListener('click', function() {
             var medicines = document.querySelector('.medicine').cloneNode(true);
