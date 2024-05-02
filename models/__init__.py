@@ -11,3 +11,5 @@ from .appointment import Appointment
 from .prescription import Prescription
 from .product import Product
 from .order import Order
+from .feedback import Feedback
+

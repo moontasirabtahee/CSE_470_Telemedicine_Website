@@ -1,6 +1,6 @@
 from . import db
 class Appointment(db.Model):
-    tablename = 'appointments'
+    __tablename__ = 'appointments'
 
     id = db.Column(db.Integer, primary_key=True)
     doctor_id = db.Column(db.Integer, db.ForeignKey('doctors.id'), nullable=False)

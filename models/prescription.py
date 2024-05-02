@@ -1,5 +1,6 @@
 # models/prescription.py
 from . import db
+
 class Prescription(db.Model):
     __tablename__ = 'prescriptions'
 

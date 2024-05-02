@@ -1,6 +1,8 @@
 {% extends "base.html" %}
 
 {% block content %}
+    <section class="i0">
+
     <section class="i1">
         <h1>Welcome to Our Telemedicine Platform</h1>
         <p>We are dedicated to providing comprehensive healthcare services in a convenient and accessible manner. Our platform offers:</p>
@@ -19,8 +21,17 @@
     </section>
 
     <section class="i3">
-        <h2>Feedback</h2>
-        <p>We value your feedback. A form will be included here later for you to share your thoughts and experiences with us.</p>
+    <h2>Feedback</h2>
+    <form method="POST">
+        {{ form.hidden_tag() }}
+        <p>{{ form.name.label }} {{ form.name() }}</p>
+        <p>{{ form.email.label }} {{ form.email() }}</p>
+        <p>{{ form.feedback.label }} {{ form.feedback() }}</p>
+        <p>{{ form.submit() }}</p>
+    </form>
+        {% if text %}
+            <H1>{{ text }}</H1>
+        {% endif %}
     </section>
 
     <section class="i4">
@@ -35,5 +46,5 @@
     {% if current_user.is_authenticated %}
         <a href="{{ url_for('login.logout') }}">Logout</a>
     {% endif %}
-
+</section>
 {% endblock %}
